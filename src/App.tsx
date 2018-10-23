@@ -77,9 +77,18 @@ class App extends React.Component<{}, State> {
                         {stageState.actionStates &&
                           stageState.actionStates.map(actionState => {
                             return (
-                              <li key={actionState.actionName}>
-                                {actionState.actionName} -{' '}
-                                {actionState.latestExecution && actionState.latestExecution.status}
+                              <li
+                                key={actionState.actionName}
+                                className={classNames('actionState', {
+                                  'actionState--in-progress':
+                                    actionState.latestExecution &&
+                                    actionState.latestExecution.status === 'InProgress',
+                                  'actionState--success':
+                                    actionState.latestExecution &&
+                                    actionState.latestExecution.status === 'Succeeded',
+                                })}
+                              >
+                                {actionState.actionName}
                               </li>
                             );
                           })}

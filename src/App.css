@@ -37,8 +37,8 @@
 
 .stageState {
   background: #ecf0f1;
-  height: 150px;
   border-top: 8px solid #000000;
+  padding: 0 15px 15px;
 }
 
 .stageState--success {
@@ -56,4 +56,24 @@
 .actionStates {
   list-style: none;
   padding: 0;
+}
+
+.actionState {
+  background: #ffffff;
+  padding: 10px;
+  border-left: 6px solid #000000;
+}
+
+.actionState--success {
+  border-left-color: #27ae60;
+}
+.actionState--in-progress {
+  border-left-color: #2980b9;
+}
+.actionState--error {
+  border-left-color: #c0392b;
+}
+
+.actionState + .actionState {
+  margin-top: 10px;
 }
