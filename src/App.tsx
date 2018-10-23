@@ -1,4 +1,5 @@
 import AWS, { CodePipeline } from 'aws-sdk';
+import classNames from 'classnames';
 import * as React from 'react';
 import './App.css';
 
@@ -25,7 +26,7 @@ class App extends React.Component<{}, State> {
   public state: Readonly<State> = { isLoading: false };
   public componentDidMount() {
     this.fetchApi();
-    setInterval(this.fetchApi, 5000);
+    setInterval(this.fetchApi, 50000);
   }
 
   public fetchApi = () => {
@@ -60,9 +61,18 @@ class App extends React.Component<{}, State> {
               {this.state.codePipeline.stageStates &&
                 this.state.codePipeline.stageStates.map(stageState => {
                   return (
-                    <li key={stageState.stageName} className="stageState">
+                    <li
+                      key={stageState.stageName}
+                      className={classNames('stageState', {
+                        'stageState--in-progress':
+                          stageState.latestExecution &&
+                          stageState.latestExecution.status === 'InProgress',
+                        'stageState--success':
+                          stageState.latestExecution &&
+                          stageState.latestExecution.status === 'Succeeded',
+                      })}
+                    >
                       <h2 className="stageState__name">{stageState.stageName}</h2>
-                      {stageState.latestExecution && stageState.latestExecution.status}
                       <ol className="actionStates">
                         {stageState.actionStates &&
                           stageState.actionStates.map(actionState => {

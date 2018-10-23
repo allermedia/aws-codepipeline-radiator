@@ -30,6 +30,7 @@
 .stageStates {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 20px;
   list-style: none;
   padding: 0;
 }
@@ -37,6 +38,19 @@
 .stageState {
   background: #ecf0f1;
   height: 150px;
+  border-top: 8px solid #000000;
+}
+
+.stageState--success {
+  border-top-color: #27ae60;
+}
+
+.stageState--in-progress {
+  border-top-color: #2980b9;
+}
+
+.stageState--error {
+  border-top-color: #c0392b;
 }
 
 .actionStates {
