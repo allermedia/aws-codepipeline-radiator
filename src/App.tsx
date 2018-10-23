@@ -60,17 +60,17 @@ class App extends React.Component<{}, State> {
 
   public render() {
     return (
-      <div className="App">
+      <div className="app">
         {this.state.isLoading &&
           !this.state.codePipelines && <img src={logo} className="App-logo" alt="logo" />}
         {this.state.codePipelines &&
           this.state.codePipelines.map(codePipeline => {
             return (
               <div key={codePipeline.pipelineName} className="codePipeline">
-                <h1>{codePipeline.pipelineName}</h1>
+                <h2 className="codePipeline__name">{codePipeline.pipelineName}</h2>
                 <ol className="stageStates">
                   {codePipeline.stageStates &&
-                    codePipeline.stageStates.map(stageState => {
+                    codePipeline.stageStates.map((stageState, index) => {
                       return (
                         <li
                           key={stageState.stageName}
@@ -86,7 +86,9 @@ class App extends React.Component<{}, State> {
                               stageState.latestExecution.status === 'Succeeded',
                           })}
                         >
-                          <h2 className="stageState__name">{stageState.stageName}</h2>
+                          <h3 className="stageState__name">
+                            {index + 1}. {stageState.stageName}
+                          </h3>
                           {stageState.latestExecution &&
                             stageState.latestExecution.status === 'InProgress' && (
                               <div className="in-progress-icon" />
