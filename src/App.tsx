@@ -24,6 +24,11 @@ interface State {
 class App extends React.Component<{}, State> {
   public state: Readonly<State> = { isLoading: false };
   public componentDidMount() {
+    this.fetchApi();
+    setInterval(this.fetchApi, 5000);
+  }
+
+  public fetchApi = () => {
     if (process.env.REACT_APP_CODE_PIPELINE_NAME) {
       this.setState({ isLoading: true });
       new CodePipeline().getPipelineState(
@@ -41,16 +46,13 @@ class App extends React.Component<{}, State> {
     } else {
       console.error('Add REACT_APP_CODE_PIPELINE_NAME to .env');
     }
-  }
+  };
 
   public render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        {this.state.isLoading && <p>Loading</p>}
+        {this.state.isLoading &&
+          !this.state.codePipeline && <img src={logo} className="App-logo" alt="logo" />}
         {this.state.codePipeline && (
           <>
             <h1>{this.state.codePipeline.pipelineName}</h1>
