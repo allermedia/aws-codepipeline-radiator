@@ -54,7 +54,7 @@ class App extends React.Component<{}, State> {
           this.setState({ isLoading: false });
         });
     } else {
-      console.error('Add REACT_APP_CODE_PIPELINE_NAME to .env');
+      console.error('Add REACT_APP_CODE_PIPELINE_NAMES to .env');
     }
   };
 
