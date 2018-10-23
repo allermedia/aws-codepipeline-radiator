@@ -53,13 +53,13 @@ class App extends React.Component<{}, State> {
         {this.state.isLoading && <p>Loading</p>}
         {this.state.codePipeline && (
           <>
-            <p className="App-intro">{this.state.codePipeline.pipelineName}</p>
+            <h1>{this.state.codePipeline.pipelineName}</h1>
             <ol className="stageStates">
               {this.state.codePipeline.stageStates &&
                 this.state.codePipeline.stageStates.map(stageState => {
                   return (
-                    <li key={stageState.stageName}>
-                      {stageState.stageName} -{' '}
+                    <li key={stageState.stageName} className="stageState">
+                      <h2 className="stageState__name">{stageState.stageName}</h2>
                       {stageState.latestExecution && stageState.latestExecution.status}
                       <ol className="actionStates">
                         {stageState.actionStates &&
