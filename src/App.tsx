@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 import './App.css';
 
+import bug from './bug.svg';
 import logo from './logo.svg';
 
 if (process.env.REACT_APP_ACCESS_KEY_ID && process.env.REACT_APP_SECRET_ACCESS_KEY) {
@@ -73,6 +74,14 @@ class App extends React.Component<{}, State> {
                       })}
                     >
                       <h2 className="stageState__name">{stageState.stageName}</h2>
+                      {stageState.latestExecution &&
+                        stageState.latestExecution.status === 'InProgress' && (
+                          <div className="in-progress-icon" />
+                        )}
+                      {stageState.latestExecution &&
+                        stageState.latestExecution.status === 'Failed' && (
+                          <img src={bug} alt="logo" className="error-icon" />
+                        )}
                       <ol className="actionStates">
                         {stageState.actionStates &&
                           stageState.actionStates.map(actionState => {

@@ -50,7 +50,7 @@
 }
 
 .stageState--error {
-  border-top-color: #c0392b;
+  border-top-color: #e74c3c;
 }
 
 .actionStates {
@@ -71,9 +71,43 @@
   border-left-color: #2980b9;
 }
 .actionState--error {
-  border-left-color: #c0392b;
+  border-left-color: #e74c3c;
 }
 
 .actionState + .actionState {
   margin-top: 10px;
+}
+
+.in-progress-icon {
+  margin: 0 auto;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 15px;
+}
+.in-progress-icon:after {
+  content: ' ';
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #2980b9;
+  border-color: #2980b9 transparent #2980b9 transparent;
+  animation: dual-ring 1s linear infinite;
+}
+@keyframes dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error-icon {
+  width: 64px;
+  height: 64px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 15px;
 }
