@@ -75,6 +75,9 @@ class App extends React.Component<{}, State> {
                         <li
                           key={stageState.stageName}
                           className={classNames('stageState', {
+                            'stageState--error':
+                              stageState.latestExecution &&
+                              stageState.latestExecution.status === 'Failed',
                             'stageState--in-progress':
                               stageState.latestExecution &&
                               stageState.latestExecution.status === 'InProgress',
@@ -99,6 +102,9 @@ class App extends React.Component<{}, State> {
                                   <li
                                     key={actionState.actionName}
                                     className={classNames('actionState', {
+                                      'actionState--error':
+                                        actionState.latestExecution &&
+                                        actionState.latestExecution.status === 'Failed',
                                       'actionState--in-progress':
                                         actionState.latestExecution &&
                                         actionState.latestExecution.status === 'InProgress',

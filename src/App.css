@@ -55,6 +55,8 @@
 
 .stageState--error {
   border-top-color: #e74c3c;
+  animation: alertPulse 1s ease-out infinite;
+  opacity: 1;
 }
 
 .actionStates {
@@ -114,4 +116,17 @@
   display: block;
   margin: 0 auto;
   margin-bottom: 15px;
+}
+
+@keyframes alertPulse {
+  0% {
+    background-color: rgba(231, 76, 60, 1);
+    opacity: 1;
+  }
+  50% {
+    background: rgba(231, 76, 60, 0.5);
+  }
+  100% {
+    background: rgba(231, 76, 60, 1);
+  }
 }
