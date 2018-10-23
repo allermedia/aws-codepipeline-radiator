@@ -19,7 +19,7 @@ if (process.env.REACT_APP_ACCESS_KEY_ID && process.env.REACT_APP_SECRET_ACCESS_K
 }
 
 interface State {
-  codePipeline?: CodePipeline.GetPipelineStateOutput;
+  codePipelines?: CodePipeline.GetPipelineStateOutput[];
   isLoading: boolean;
 }
 
@@ -27,24 +27,32 @@ class App extends React.Component<{}, State> {
   public state: Readonly<State> = { isLoading: false };
   public componentDidMount() {
     this.fetchApi();
-    setInterval(this.fetchApi, 50000);
+    setInterval(this.fetchApi, 5000);
   }
 
+  public pipelinePromise = (name: string) => {
+    return new Promise<CodePipeline.GetPipelineStateOutput>((resolve, reject) => {
+      new CodePipeline().getPipelineState({ name }, (error, data) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+  };
+
   public fetchApi = () => {
-    if (process.env.REACT_APP_CODE_PIPELINE_NAME) {
+    if (process.env.REACT_APP_CODE_PIPELINE_NAMES) {
       this.setState({ isLoading: true });
-      new CodePipeline().getPipelineState(
-        { name: process.env.REACT_APP_CODE_PIPELINE_NAME },
-        (error, data) => {
-          if (error) {
-            this.setState({ isLoading: false });
-            console.log(error, error.stack);
-          } else {
-            console.log(data.stageStates);
-            this.setState({ codePipeline: data, isLoading: false });
-          }
-        },
-      );
+      Promise.all(process.env.REACT_APP_CODE_PIPELINE_NAMES.split(',').map(this.pipelinePromise))
+        .then(data => {
+          this.setState({ isLoading: false, codePipelines: data });
+        })
+        .catch(error => {
+          console.error(error);
+          this.setState({ isLoading: false });
+        });
     } else {
       console.error('Add REACT_APP_CODE_PIPELINE_NAME to .env');
     }
@@ -54,60 +62,63 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {this.state.isLoading &&
-          !this.state.codePipeline && <img src={logo} className="App-logo" alt="logo" />}
-        {this.state.codePipeline && (
-          <>
-            <h1>{this.state.codePipeline.pipelineName}</h1>
-            <ol className="stageStates">
-              {this.state.codePipeline.stageStates &&
-                this.state.codePipeline.stageStates.map(stageState => {
-                  return (
-                    <li
-                      key={stageState.stageName}
-                      className={classNames('stageState', {
-                        'stageState--in-progress':
-                          stageState.latestExecution &&
-                          stageState.latestExecution.status === 'InProgress',
-                        'stageState--success':
-                          stageState.latestExecution &&
-                          stageState.latestExecution.status === 'Succeeded',
-                      })}
-                    >
-                      <h2 className="stageState__name">{stageState.stageName}</h2>
-                      {stageState.latestExecution &&
-                        stageState.latestExecution.status === 'InProgress' && (
-                          <div className="in-progress-icon" />
-                        )}
-                      {stageState.latestExecution &&
-                        stageState.latestExecution.status === 'Failed' && (
-                          <img src={bug} alt="logo" className="error-icon" />
-                        )}
-                      <ol className="actionStates">
-                        {stageState.actionStates &&
-                          stageState.actionStates.map(actionState => {
-                            return (
-                              <li
-                                key={actionState.actionName}
-                                className={classNames('actionState', {
-                                  'actionState--in-progress':
-                                    actionState.latestExecution &&
-                                    actionState.latestExecution.status === 'InProgress',
-                                  'actionState--success':
-                                    actionState.latestExecution &&
-                                    actionState.latestExecution.status === 'Succeeded',
-                                })}
-                              >
-                                {actionState.actionName}
-                              </li>
-                            );
+          !this.state.codePipelines && <img src={logo} className="App-logo" alt="logo" />}
+        {this.state.codePipelines &&
+          this.state.codePipelines.map(codePipeline => {
+            return (
+              <div key={codePipeline.pipelineName} className="codePipeline">
+                <h1>{codePipeline.pipelineName}</h1>
+                <ol className="stageStates">
+                  {codePipeline.stageStates &&
+                    codePipeline.stageStates.map(stageState => {
+                      return (
+                        <li
+                          key={stageState.stageName}
+                          className={classNames('stageState', {
+                            'stageState--in-progress':
+                              stageState.latestExecution &&
+                              stageState.latestExecution.status === 'InProgress',
+                            'stageState--success':
+                              stageState.latestExecution &&
+                              stageState.latestExecution.status === 'Succeeded',
                           })}
-                      </ol>
-                    </li>
-                  );
-                })}
-            </ol>
-          </>
-        )}
+                        >
+                          <h2 className="stageState__name">{stageState.stageName}</h2>
+                          {stageState.latestExecution &&
+                            stageState.latestExecution.status === 'InProgress' && (
+                              <div className="in-progress-icon" />
+                            )}
+                          {stageState.latestExecution &&
+                            stageState.latestExecution.status === 'Failed' && (
+                              <img src={bug} alt="logo" className="error-icon" />
+                            )}
+                          <ol className="actionStates">
+                            {stageState.actionStates &&
+                              stageState.actionStates.map(actionState => {
+                                return (
+                                  <li
+                                    key={actionState.actionName}
+                                    className={classNames('actionState', {
+                                      'actionState--in-progress':
+                                        actionState.latestExecution &&
+                                        actionState.latestExecution.status === 'InProgress',
+                                      'actionState--success':
+                                        actionState.latestExecution &&
+                                        actionState.latestExecution.status === 'Succeeded',
+                                    })}
+                                  >
+                                    {actionState.actionName}
+                                  </li>
+                                );
+                              })}
+                          </ol>
+                        </li>
+                      );
+                    })}
+                </ol>
+              </div>
+            );
+          })}
       </div>
     );
   }

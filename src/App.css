@@ -27,6 +27,10 @@
   }
 }
 
+.codePipeline + .codePipeline {
+  margin-top: 50px;
+}
+
 .stageStates {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
