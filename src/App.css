@@ -12,6 +12,11 @@
   }
 }
 
+.loading {
+  text-align: center;
+  padding: 32px;
+}
+
 .codePipeline__name {
   text-align: center;
 }

@@ -62,7 +62,10 @@ class App extends React.Component<{}, State> {
     return (
       <div className="app">
         {this.state.isLoading && !this.state.codePipelines && (
-          <img src={logo} className="App-logo" alt="logo" />
+          <div className="loading">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h3>Loading</h3>
+          </div>
         )}
         {this.state.codePipelines &&
           this.state.codePipelines.map(codePipeline => {
