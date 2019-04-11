@@ -59,6 +59,18 @@
   border-left: 6px solid #000000;
 }
 
+.actionState__error-description {
+  display: block;
+  font-style: italic;
+  margin-top: 16px;
+}
+
+.actionState__error-written-by {
+  font-size: 14px;
+  color: #777777;
+  margin-top: 8px;
+}
+
 .actionState--success {
   border-left-color: #27ae60;
 }

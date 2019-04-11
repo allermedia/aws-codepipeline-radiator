@@ -61,8 +61,9 @@ class App extends React.Component<{}, State> {
   public render() {
     return (
       <div className="app">
-        {this.state.isLoading &&
-          !this.state.codePipelines && <img src={logo} className="App-logo" alt="logo" />}
+        {this.state.isLoading && !this.state.codePipelines && (
+          <img src={logo} className="App-logo" alt="logo" />
+        )}
         {this.state.codePipelines &&
           this.state.codePipelines.map(codePipeline => {
             return (
@@ -116,6 +117,21 @@ class App extends React.Component<{}, State> {
                                     })}
                                   >
                                     {actionState.actionName}
+                                    {actionState.latestExecution &&
+                                      actionState.latestExecution.status === 'Failed' && (
+                                        <>
+                                          <div className="actionState__error-description">
+                                            {actionState.latestExecution.summary}
+                                          </div>
+                                          {actionState.latestExecution.lastUpdatedBy && (
+                                            <div className="actionState__error-written-by">
+                                              {actionState.latestExecution.lastUpdatedBy
+                                                .split('/')
+                                                .pop()}
+                                            </div>
+                                          )}
+                                        </>
+                                      )}
                                   </li>
                                 );
                               })}
