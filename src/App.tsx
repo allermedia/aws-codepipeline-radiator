@@ -6,28 +6,32 @@ import './App.css';
 import bug from './bug.svg';
 import logo from './logo.svg';
 
-if (process.env.REACT_APP_ACCESS_KEY_ID && process.env.REACT_APP_SECRET_ACCESS_KEY) {
-  AWS.config.update({
-    credentials: {
-      accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
-      secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
-    },
-    region: process.env.REACT_APP_REGION,
-  });
-} else {
-  console.error('Add REACT_APP_ACCESS_KEY_ID and REACT_APP_SECRET_ACCESS_KEY to .env');
-}
+type Props = {
+  isEnvFileCorrect: boolean;
+};
 
-interface State {
+type State = {
   codePipelines?: CodePipeline.GetPipelineStateOutput[];
   isLoading: boolean;
-}
+  showEnvFileError: boolean;
+};
 
-class App extends React.Component<{}, State> {
-  public state: Readonly<State> = { isLoading: false };
+class App extends React.Component<Props, State> {
+  public state: Readonly<State> = { isLoading: false, showEnvFileError: false };
   public componentDidMount() {
-    this.fetchApi();
-    setInterval(this.fetchApi, 5000);
+    if (this.props.isEnvFileCorrect) {
+      AWS.config.update({
+        credentials: {
+          accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID!,
+          secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY!,
+        },
+        region: process.env.REACT_APP_REGION,
+      });
+      this.fetchApi();
+      setInterval(this.fetchApi, 5000);
+    } else {
+      this.setState({ showEnvFileError: true });
+    }
   }
 
   public pipelinePromise = (name: string) => {
@@ -43,22 +47,24 @@ class App extends React.Component<{}, State> {
   };
 
   public fetchApi = () => {
-    if (process.env.REACT_APP_CODE_PIPELINE_NAMES) {
-      this.setState({ isLoading: true });
-      Promise.all(process.env.REACT_APP_CODE_PIPELINE_NAMES.split(',').map(this.pipelinePromise))
-        .then(data => {
-          this.setState({ isLoading: false, codePipelines: data });
-        })
-        .catch(error => {
-          console.error(error);
-          this.setState({ isLoading: false });
-        });
-    } else {
-      console.error('Add REACT_APP_CODE_PIPELINE_NAMES to .env');
-    }
+    this.setState({ isLoading: true });
+    Promise.all(process.env.REACT_APP_CODE_PIPELINE_NAMES!.split(',').map(this.pipelinePromise))
+      .then(data => {
+        this.setState({ isLoading: false, codePipelines: data });
+      })
+      .catch(error => {
+        console.error(error);
+        this.setState({ isLoading: false });
+      });
   };
 
   public render() {
+    if (this.state.showEnvFileError) {
+      return (
+        <>Your .env file is not correct. Please check README to see how it should be configured</>
+      );
+    }
+
     return (
       <div className="app">
         {this.state.isLoading && !this.state.codePipelines && (
