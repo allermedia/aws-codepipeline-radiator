@@ -31,7 +31,7 @@ class App extends React.Component<Props, State> {
     if (queryParam) {
       axios.get(`/codepipelines/state?q=${queryParam}`)
         .then((res) => {
-          this.setState({ isLoading: false, codePipelines: [res.data as CodePipeline.GetPipelineStateOutput] });
+          this.setState({ isLoading: false, codePipelines: res.data as CodePipeline.GetPipelineStateOutput[] });
         })
         .catch((err) => {
           console.error('Error:', err);

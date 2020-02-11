@@ -6,12 +6,15 @@ const codepipeline = new CodePipeline({
 });
 const router = Router();
 
+const getPipelineState = (name: string) => codepipeline.getPipelineState({ name }).promise();
+
 router.get('/codepipelines/state', (req, res) => {
-  codepipeline.getPipelineState({ name: req.query.q }).promise()
+  const codePipelineNames = req.query.q.split(',');
+  Promise.all(codePipelineNames.map(getPipelineState))
     .then(data => res.json(data))
     .catch(err => {
       console.log('Error:', err);
-      res.status(500).json({})
+      res.status(500);
     });
 });
 
