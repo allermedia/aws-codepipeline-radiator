@@ -1,9 +1,7 @@
 import { Router } from "express";
 import { CodePipeline } from "aws-sdk";
 
-const codepipeline = new CodePipeline({
-  region: process.env.AWS_DEFAULT_REGION,
-});
+const codepipeline = new CodePipeline();
 const router = Router();
 
 const getPipelineState = (name: string) => codepipeline.getPipelineState({ name }).promise();
