@@ -1,32 +1,19 @@
 {
-  "name": "code-pipeline-radiator",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "aws-sdk": "2.437.0",
-    "classnames": "2.2.6",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-scripts": "2.1.8"
+  "name": "aws-codepipeline-radiator",
+  "version": "1.0.0",
+  "description": "Has your CodePipeline builds ever been broken for multiple days because the status of those pipes weren't visible somewhere all the time? 😢",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allermedia/aws-codepipeline-radiator.git"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allermedia/aws-codepipeline-radiator/issues"
   },
-  "devDependencies": {
-    "@types/classnames": "2.2.7",
-    "@types/jest": "24.0.11",
-    "@types/react": "16.8.13",
-    "@types/react-dom": "16.8.3",
-    "typescript": "3.4.3"
-  },
-  "homepage": ".",
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "homepage": "https://github.com/allermedia/aws-codepipeline-radiator#readme",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {}
 }
