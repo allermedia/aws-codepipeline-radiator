@@ -6,7 +6,7 @@ const router = Router();
 
 const getPipelineState = (name: string) => codepipeline.getPipelineState({ name }).promise();
 
-router.get('/codepipelines/state', (req, res) => {
+router.get('/api/codepipelines/state', (req, res) => {
   const codePipelineNames = req.query.q.split(',');
   Promise.all(codePipelineNames.map(getPipelineState))
     .then(data => res.json(data))

@@ -8,7 +8,6 @@ import bug from './bug.svg';
 import logo from './logo.svg';
 
 type Props = {
-  // isEnvFileCorrect: boolean;
 };
 
 type State = {
@@ -29,7 +28,7 @@ class App extends React.Component<Props, State> {
 
     const queryParam = new URLSearchParams(window.location.search).get('q');
     if (queryParam) {
-      axios.get(`/codepipelines/state?q=${queryParam}`)
+      axios.get(`/api/codepipelines/state?q=${queryParam}`)
         .then((res) => {
           this.setState({ isLoading: false, codePipelines: res.data as CodePipeline.GetPipelineStateOutput[] });
         })
