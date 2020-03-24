@@ -6,22 +6,24 @@ With CodePipeline Radiator you can see the status of all project pipes you wan't
 
 ## How to configure
 
+__Note!__ Configration is subject to change as the radiator is currently being switched to Lambda, which in turn uses IAM roles
+
 1. Create IAM user who has access to fetch status of CodePipeline projects
 2. Create `.env` file with `cp .env.example .env`
-3. Fill `REACT_APP_ACCESS_KEY_ID` and `REACT_APP_SECRET_ACCESS_KEY` with information of the user that was created in step 1
-4. Also fill `REACT_APP_REGION` with the desired region and `REACT_APP_CODE_PIPELINE_NAMES` with names of CodePipelines you wan't to watch separated with commas (see example below)
+3. Set the `AWS_REGION` with the desired region in `.env` file or environment variable
+4. Auth either using `aws-cli` or set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in `.env` file or environment variable with the information of the user that was created in step 1
 
 Example `.env` file
 
 ```bash
-REACT_APP_ACCESS_KEY_ID=someRandomStringHereGeneratedByAWS
-REACT_APP_SECRET_ACCESS_KEY=someRandomStringHereGeneratedByAWS
-REACT_APP_REGION=eu-west-1
-REACT_APP_CODE_PIPELINE_NAMES=my-codepipeline-project,some-other-codepipeline-project
+AWS_REGION=eu-west-1
+AWS_ACCESS_KEY_ID=someRandomStringHereGeneratedByAWS
+AWS_SECRET_ACCESS_KEY=someRandomStringHereGeneratedByAWS
 ```
 
 ## Starting the radiator
 
 1. Run `npm run build` to create production build of the radiator
-2. Open `index.html` file in `build` folder that was generated in step 1
-3. Now you have radiator open 📺!
+2. Run `npm start` to start the server
+3. Open `http://localhost` and set the CodePipeline name to the `q` url param (fe. `?q=my-fantastic-codepipeline`)
+4. Enjoy your new visibility to AWS CodePipeline 📺!
