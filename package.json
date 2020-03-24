@@ -1,7 +1,7 @@
 {
   "name": "aws-codepipeline-radiator",
   "version": "1.0.0",
-  "description": "Has your CodePipeline builds ever been broken for multiple days because the status of those pipes weren't visible somewhere all the time? 😢",
+  "description": "Radiator for making AWS CodePipeline status visible",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/allermedia/aws-codepipeline-radiator.git"
@@ -14,6 +14,20 @@
   },
   "homepage": "https://github.com/allermedia/aws-codepipeline-radiator#readme",
   "dependencies": {},
-  "devDependencies": {},
-  "scripts": {}
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^3.7.5"
+  },
+  "scripts": {
+    "server:test": "echo \"Error: no test specified\" && exit 1",
+    "server:test:eslint": "eslint --ext .js,.ts .",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd server && npm run build"
+  }
 }
