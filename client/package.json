@@ -8,14 +8,14 @@
     "classnames": "2.2.6",
     "cross-env": "7.0.0",
     "react": "16.12.0",
-    "react-dom": "16.12.0",
-    "react-scripts": "3.3.1"
+    "react-dom": "16.12.0"
   },
   "devDependencies": {
     "@types/classnames": "2.2.9",
     "@types/jest": "25.1.2",
     "@types/react": "16.9.19",
     "@types/react-dom": "16.9.5",
+    "react-scripts": "^3.4.1",
     "typescript": "3.7.5"
   },
   "scripts": {
@@ -24,7 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:80",
+  "proxy": "http://localhost:8080",
   "homepage": ".",
   "browserslist": [
     ">0.2%",
