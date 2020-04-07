@@ -1,6 +1,6 @@
 import { CodePipeline } from 'aws-sdk';
 import classNames from 'classnames';
-import React, { ReactNode } from 'react';
+import React, { Component, ReactNode } from 'react';
 import './App.css';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ type State = {
   showEnvFileError: boolean;
 };
 
-class App extends React.Component<Props, State> {
+class App extends Component<Props, State> {
   public state: Readonly<State> = { isLoading: false, showEnvFileError: false };
 
   public componentDidMount(): void {
