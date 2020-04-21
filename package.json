@@ -28,6 +28,7 @@
     "server:test:eslint": "eslint --ext .js,.ts .",
     "build": "npm run build:server && npm run build:client",
     "build:server": "cd server && npm run build",
-    "build:client": "cd server && npm run build"
+    "build:client": "cd server && npm run build",
+    "start": "cd server && npm start"
   }
 }
