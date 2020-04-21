@@ -8,11 +8,9 @@ With CodePipeline Radiator you can see the status of all project pipes you wan't
 
 __Note!__ Configration is subject to change as the radiator is currently being switched to Lambda, which in turn uses IAM roles
 
-1. Install server modules (`cd server`, `npm install`)
-2. Install client modules (`cd client`, `npm install`)
-3. Create `server/.env` file by copying `server/.env-example` to `server/.env` (`cp server/.env.example server/.env`)
-4. Set the `AWS_REGION` with the desired region in `.env` file or environment variable
-5. Auth either using `aws-cli` or create IAM user with access to CodePipeline and set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to `.env` file or environment variables
+1. Create `server/.env` file by copying `server/.env-example` to `server/.env` (`cp server/.env.example server/.env`)
+2. Set the `AWS_REGION` with the desired region in `.env` file or environment variable
+3. Auth either using `aws-cli` or create IAM user with access to CodePipeline and set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to `.env` file or environment variables
 
 Example `.env` file
 
@@ -25,10 +23,12 @@ AWS_SECRET_ACCESS_KEY=someRandomStringHereGeneratedByAWS
 
 ## Usage
 
-1. Run `npm run build` to create production build of the radiator
-2. Run `npm start` to start the server
-3. Open `http://localhost` and set the CodePipeline name to the `q` url param (fe. `http://localhost?q=my-fantastic-codepipeline`)
-4. Enjoy your new visibility to AWS CodePipeline 📺!
+1. Install server modules (`cd server`, `npm install`)
+2. Install client modules (`cd client`, `npm install`)
+3. Run `npm run build` to create production build of the radiator
+4. Run `npm start` to start the server
+5. Open `http://localhost` and set the CodePipeline name to the `q` url param (fe. `http://localhost?q=my-fantastic-codepipeline`)
+6. Enjoy your new visibility to AWS CodePipeline 📺!
 
 ## Development
 
