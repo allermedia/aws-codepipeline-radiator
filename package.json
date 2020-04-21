@@ -1,32 +1,34 @@
 {
-  "name": "code-pipeline-radiator",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "aws-sdk": "2.437.0",
-    "classnames": "2.2.6",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-scripts": "2.1.8"
+  "name": "aws-codepipeline-radiator",
+  "version": "1.0.0",
+  "description": "Radiator for making AWS CodePipeline status visible",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allermedia/aws-codepipeline-radiator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allermedia/aws-codepipeline-radiator/issues"
+  },
+  "homepage": "https://github.com/allermedia/aws-codepipeline-radiator#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "typescript": "^3.8.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "devDependencies": {
-    "@types/classnames": "2.2.7",
-    "@types/jest": "24.0.11",
-    "@types/react": "16.8.13",
-    "@types/react-dom": "16.8.3",
-    "typescript": "3.4.3"
-  },
-  "homepage": ".",
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    "test": "npm run test:server && npm run test:client",
+    "test:server": "cd server && npm test",
+    "test:client": "cd client && npm test -- --watchAll=false",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
+    "start": "cd server && npm start"
+  }
 }
