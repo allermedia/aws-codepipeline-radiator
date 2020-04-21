@@ -21,7 +21,7 @@ AWS_ACCESS_KEY_ID=someRandomStringHereGeneratedByAWS
 AWS_SECRET_ACCESS_KEY=someRandomStringHereGeneratedByAWS
 ```
 
-## Starting the radiator
+## Usage
 
 1. Run `npm run build` to create production build of the radiator
 2. Run `npm start` to start the server
