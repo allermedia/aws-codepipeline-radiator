@@ -27,3 +27,12 @@ AWS_SECRET_ACCESS_KEY=someRandomStringHereGeneratedByAWS
 2. Run `npm start` to start the server
 3. Open `http://localhost` and set the CodePipeline name to the `q` url param (fe. `http://localhost?q=my-fantastic-codepipeline`)
 4. Enjoy your new visibility to AWS CodePipeline 📺!
+
+## Development
+
+1. Setup configurations (see above)
+2. Install common modules (`npm install`)
+3. Install server modules (`cd server`, `npm install`)
+4. Install client modules (`cd client`, `npm install`)
+5. Start server in development mode (`cd server`, `npm run dev`)
+6. Start client in development mode (`cd client`, `npm run dev`)
