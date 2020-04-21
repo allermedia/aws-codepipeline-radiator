@@ -8,7 +8,7 @@ With CodePipeline Radiator you can see the status of all project pipes you wan't
 
 __Note!__ Configration is subject to change as the radiator is currently being switched to Lambda, which in turn uses IAM roles
 
-1. Create `.env` file with `cp .env.example .env`
+1. Create `server/.env` file by copying `server/.env-example` to `server/.env` (`cp server/.env.example server/.env`)
 2. Set the `AWS_REGION` with the desired region in `.env` file or environment variable
 3. Auth either using `aws-cli` or create IAM user with access to CodePipeline and set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to `.env` file or environment variables
 
