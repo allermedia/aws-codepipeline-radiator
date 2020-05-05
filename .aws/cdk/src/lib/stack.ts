@@ -1,7 +1,12 @@
-import { Stack, App } from '@aws-cdk/core';
+import { Stack, App, CfnOutput } from '@aws-cdk/core';
+import { PolicyStatement } from '@aws-cdk/aws-iam';
 import { LambdaRestApi } from '@aws-cdk/aws-apigateway';
 import { Function, AssetCode, Runtime } from '@aws-cdk/aws-lambda';
-import { ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
+import { Bucket } from '@aws-cdk/aws-s3';
+import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
+import { CloudFrontWebDistribution, OriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
+import { S3Deployment } from './S3Deployment';
+
 
 export default class ApplicationStack extends Stack {
   constructor(scope: App, id: string) {
@@ -9,7 +14,7 @@ export default class ApplicationStack extends Stack {
 
     // domain: this.node.tryGetContext('domain'),
 
-    const lambdaFunction = new Function(this, 'ApiFunction', {
+    const lambdaFunction = new Function(this, 'ServerFunction', {
       runtime: Runtime.NODEJS_12_X,
       code: AssetCode.asset('../../server'),
       handler: 'dist/bin/lambda.handler',
@@ -26,8 +31,13 @@ export default class ApplicationStack extends Stack {
 
     lambdaFunction.addToRolePolicy(accessPolicy)
 
-    new LambdaRestApi(this, 'RestApi', {
+    new LambdaRestApi(this, 'ServerApi', {
       handler: lambdaFunction,
+    });
+
+    // Create S3 deployment
+    new S3Deployment(this, 'S3Deployment', {
+      sourcePath: '../../client/build',
     });
   }
 };
