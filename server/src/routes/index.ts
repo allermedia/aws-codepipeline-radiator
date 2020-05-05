@@ -14,7 +14,7 @@ router.get('/api/codepipelines/state', (req, res) => {
       message: 'Query (q=) param is required',
     });
   } else {
-    const codePipelineNames = req.query.q.split(',');
+    const codePipelineNames = (req.query.q as string).split(',');
     Promise.all(codePipelineNames.map(getPipelineState))
       .then((data) => res.json(data))
       .catch((err) => {
