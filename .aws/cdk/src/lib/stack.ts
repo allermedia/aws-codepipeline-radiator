@@ -10,8 +10,8 @@ export default class ApplicationStack extends Stack {
 
     const handler = new Function(this, 'ApiFunction', {
       runtime: Runtime.NODEJS_12_X,
-      code: AssetCode.asset('../../'),
-      handler: 'server/dist/bin/lambda.handler',
+      code: AssetCode.asset('../../server'),
+      handler: 'dist/bin/lambda.handler',
       environment: {
         // BUCKET: bucket.bucketName
       },

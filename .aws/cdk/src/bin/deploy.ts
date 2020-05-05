@@ -7,7 +7,7 @@ import { resolve } from 'path';
 const app = new App();
 const env = app.node.tryGetContext('env');
 if (!env) {
-  throw new Error('No "envtype" context defined.');
+  throw new Error('No "env" context defined.');
 }
 
 // Load package.json
