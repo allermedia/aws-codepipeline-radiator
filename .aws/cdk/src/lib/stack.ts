@@ -1,7 +1,7 @@
 import { Stack, App } from '@aws-cdk/core';
 import { LambdaRestApi } from '@aws-cdk/aws-apigateway';
 import { Function, AssetCode, Runtime } from '@aws-cdk/aws-lambda';
-import { ServicePrincipal } from '@aws-cdk/aws-iam';
+import { ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
 
 export default class ApplicationStack extends Stack {
   constructor(scope: App, id: string) {
@@ -18,10 +18,13 @@ export default class ApplicationStack extends Stack {
       },
       logRetention: 30,
     });
-    lambdaFunction.addPermission('allowCodePipelineRead', {
-      principal: new ServicePrincipal('codepipeline.amazonaws.com'),
-      action: 'codepipeline:getPipelineState',
-    });
+
+    // Create access policy to get codepipeline states
+    const accessPolicy = new PolicyStatement();
+    accessPolicy.addResources('*');
+    accessPolicy.addActions('codepipeline:getPipelineState');
+
+    lambdaFunction.addToRolePolicy(accessPolicy)
 
     new LambdaRestApi(this, 'RestApi', {
       handler: lambdaFunction,
