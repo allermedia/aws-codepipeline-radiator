@@ -26,9 +26,7 @@
 }
 
 .stageStates {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 20px;
+  display: flex;
   list-style: none;
   padding: 0;
 }
@@ -37,6 +35,8 @@
   background: #ecf0f1;
   border-top: 8px solid #000000;
   padding: 0 15px 15px;
+  flex: 1 1 0;
+  margin: 10px;
 }
 
 .stageState--success {
