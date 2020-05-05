@@ -20,6 +20,7 @@ export default class ApplicationStack extends Stack {
     });
     lambdaFunction.addPermission('allowCodePipelineRead', {
       principal: new ServicePrincipal('codepipeline.amazonaws.com'),
+      action: 'codepipeline:getPipelineState',
     });
 
     new LambdaRestApi(this, 'RestApi', {
