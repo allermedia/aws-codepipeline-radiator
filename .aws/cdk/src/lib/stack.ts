@@ -2,9 +2,6 @@ import { Stack, App, CfnOutput } from '@aws-cdk/core';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 import { LambdaRestApi } from '@aws-cdk/aws-apigateway';
 import { Function, AssetCode, Runtime } from '@aws-cdk/aws-lambda';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
-import { CloudFrontWebDistribution, OriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
 import { S3Deployment } from './S3Deployment';
 
 
@@ -38,6 +35,8 @@ export default class ApplicationStack extends Stack {
     // Create S3 deployment
     new S3Deployment(this, 'S3Deployment', {
       sourcePath: '../../client/build',
+      domainNames: ['aws-codepipeline-radiator-test.aws.aller.com'],
+      hostedZoneDomainName: 'aws.aller.com.',
     });
   }
 };
