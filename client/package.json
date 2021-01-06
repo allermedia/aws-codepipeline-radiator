@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "aws-sdk": "2.615.0",
-    "axios": "0.19.2",
+    "axios": "0.21.1",
     "classnames": "2.2.6",
     "cross-env": "7.0.0",
     "react": "16.12.0",
